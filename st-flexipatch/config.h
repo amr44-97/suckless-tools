@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "JetBrainsMono Nerd Font:pixelsize=16:antialias=true:autohint=true";
+static char *font = "CaskaydiaCove Nerd Font Mono:pixelsize=17:antialias=true:autohint=true";
 #if FONT2_PATCH
 /* Spare fonts */
 static char *font2[] = {
@@ -14,12 +14,22 @@ static char *font2[] = {
 };
 #endif // FONT2_PATCH
 
+#if BACKGROUND_IMAGE_PATCH
+/*
+ * background image
+ * expects farbfeld format
+ * pseudo transparency fixes coordinates to the screen origin
+ */
+static const char *bgfile = "/path/to/image.ff";
+static const int pseudotransparency = 0;
+#endif // BACKGROUND_IMAGE_PATCH
+
 #if RELATIVEBORDER_PATCH
 /* borderperc: percentage of cell width to use as a border
  *             0 = no border, 100 = border width is same as cell width */
-int borderperc = 20;
+int borderperc = 10;
 #else
-static int borderpx = 2;
+static int borderpx = 0;
 #endif // RELATIVEBORDER_PATCH
 
 #if OPENURLONCLICK_PATCH
@@ -139,13 +149,13 @@ unsigned int tabspaces = 8;
 
 #if ALPHA_PATCH
 /* bg opacity */
-float alpha = 0.8;
+float alpha = 0.5;
 #if ALPHA_GRADIENT_PATCH
-float grad_alpha = 0.54; //alpha value that'll change
-float stat_alpha = 0.46; //constant alpha value that'll get added to grad_alpha
+float grad_alpha = 0;//0.54; //alpha value that'll change
+float stat_alpha = 0;//0.46; //constant alpha value that'll get added to grad_alpha
 #endif // ALPHA_GRADIENT_PATCH
 #if ALPHA_FOCUS_HIGHLIGHT_PATCH
-float alphaUnfocused = 0.6;
+float alphaUnfocused = 1;//0.6;
 #endif // ALPHA_FOCUS_HIGHLIGHT_PATCH
 #endif // ALPHA_PATCH
 
@@ -187,9 +197,9 @@ static const char *colorname[] = {
  */
 #if ALPHA_PATCH && ALPHA_FOCUS_HIGHLIGHT_PATCH
 unsigned int defaultbg = 0;
-unsigned int bg = 17, bgUnfocused = 16;
+unsigned int bg = 0, bgUnfocused = 0;
 #else
-unsigned int defaultbg = 258;
+unsigned int defaultbg = 7;//258;
 #endif // ALPHA_FOCUS_HIGHLIGHT_PATCH
 unsigned int defaultfg = 259;
 unsigned int defaultcs = 256;

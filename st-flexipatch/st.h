@@ -148,6 +148,7 @@ typedef struct {
 	#if SCROLLBACK_PATCH
 	Line hist[HISTSIZE]; /* history buffer */
 	int histi;    /* history index */
+	int histn;    /* number of history entries */
 	int scr;      /* scroll back */
 	#endif // SCROLLBACK_PATCH
 	int *dirty;   /* dirtyness of lines */
@@ -181,6 +182,9 @@ typedef union {
 typedef struct {
 	int tw, th; /* tty width and height */
 	int w, h; /* window width and height */
+	#if BACKGROUND_IMAGE_PATCH
+	int x, y; /* window location */
+	#endif // BACKGROUND_IMAGE_PATCH
 	#if ANYSIZE_PATCH
 	int hborderpx, vborderpx;
 	#endif // ANYSIZE_PATCH
@@ -210,6 +214,9 @@ typedef struct {
 		XVaNestedList spotlist;
 	} ime;
 	Draw draw;
+	#if BACKGROUND_IMAGE_PATCH
+	GC bggc;          /* Graphics Context for background */
+	#endif // BACKGROUND_IMAGE_PATCH
 	Visual *vis;
 	XSetWindowAttributes attrs;
 	#if HIDECURSOR_PATCH

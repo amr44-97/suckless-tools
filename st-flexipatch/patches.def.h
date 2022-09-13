@@ -22,31 +22,34 @@
  * https://github.com/juliusHuelsmann/st-focus/
  * https://st.suckless.org/patches/alpha_focus_highlight/
  */
-#define ALPHA_FOCUS_HIGHLIGHT_PATCH 0
+#define ALPHA_FOCUS_HIGHLIGHT_PATCH 1
 
 /* Adds gradient transparency to st, depends on the alpha patch.
  * https://st.suckless.org/patches/gradient/
  */
-#define ALPHA_GRADIENT_PATCH 0
+#define ALPHA_GRADIENT_PATCH 1
 
 /* This patch allows st to resize to any pixel size rather than snapping to character width/height.
  * https://st.suckless.org/patches/anysize/
  */
 #define ANYSIZE_PATCH 1
 
-/* This patch aims to prevent black bars being drawn on the edges of st terminals using the anysize
- * patch. This generally only occurs when the terminal background color doesn't match the colors
- * set in st's config.h file, for example when using terminal theming scripts such as base16.
- * (I have not found this to be working, but adding for reference. May reduce flickering on
- * terminal resizes.)
- * https://github.com/connor-brooks/st-anysize-nobar
- */
-#define ANYSIZE_NOBAR_PATCH 0
-
 /* A simple variant of the anysize patch that only changes the resize hints to allow the window to
  * be resized to any size.
  */
 #define ANYSIZE_SIMPLE_PATCH 0
+
+/* Draws a background image in farbfeld format in place of the defaultbg color allowing for pseudo
+ * transparency.
+ * https://st.suckless.org/patches/background_image/
+ */
+#define BACKGROUND_IMAGE_PATCH 0
+
+/* This patch adds the ability to reload the background image config when a SIGUSR1 signal is
+ * received, e.g.: killall -USR1 st
+ * Depends on the BACKGROUND_IMAGE_PATCH.
+ */
+#define BACKGROUND_IMAGE_RELOAD_PATCH 0
 
 /* This patch allows the use of a blinking cursor.
  * Only cursor styles 0, 1, 3, 5, and 7 blink. Set cursorstyle accordingly.
@@ -60,12 +63,12 @@
  * This patch makes bold text rendered simply as bold, leaving the color unaffected.
  * https://st.suckless.org/patches/bold-is-not-bright/
  */
-#define BOLD_IS_NOT_BRIGHT_PATCH 1
+#define BOLD_IS_NOT_BRIGHT_PATCH 0
 
 /* This patch adds custom rendering of lines/blocks/braille characters for gapless alignment.
  * https://st.suckless.org/patches/boxdraw/
  */
-#define BOXDRAW_PATCH 1
+#define BOXDRAW_PATCH 0
 
 /* By default st only sets PRIMARY on selection.
  * This patch makes st set CLIPBOARD on selection.
@@ -113,7 +116,7 @@
  * While many terminal emulators do this it is not adhering to specification. xterm is an
  * example terminal that sets a blinking block instead of the configured one, same as st.
  */
-#define DEFAULT_CURSOR_PATCH 0
+#define DEFAULT_CURSOR_PATCH 1
 
 /* Return BS on pressing backspace and DEL on pressing the delete key.
  * https://st.suckless.org/patches/delkey/
@@ -167,7 +170,7 @@
  * that are available to GUI applications.
  * https://st.suckless.org/patches/fix_keyboard_input/
  */
-#define FIXKEYBOARDINPUT_PATCH 1
+#define FIXKEYBOARDINPUT_PATCH 0
 
 /* This patch allows you to add spare font besides the default. Some glyphs can be not present in
  * the default font. For this glyphs st uses font-config and try to find them in font cache first.
@@ -215,7 +218,7 @@
  * https://github.com/cog1to/st-ligatures
  * https://st.suckless.org/patches/ligatures/
  */
-#define LIGATURES_PATCH 0
+#define LIGATURES_PATCH 1
 
 /* This patch makes st ignore terminal color attributes by forcing display of the default
  * foreground and background colors only - making for a monochrome look. Idea ref.
@@ -226,13 +229,13 @@
 /* This patch sets the _NET_WM_ICON X property with a hardcoded icon for st.
  * https://st.suckless.org/patches/netwmicon/
  */
-#define NETWMICON_PATCH 1
+#define NETWMICON_PATCH 0
 
 /* This patch allows you to spawn a new st terminal using Ctrl-Shift-Return. It will have the
  * same CWD (current working directory) as the original st instance.
  * https://st.suckless.org/patches/newterm/
  */
-#define NEWTERM_PATCH 1
+#define NEWTERM_PATCH 0
 
 /* Open contents of the clipboard in a user-defined browser.
  * https://st.suckless.org/patches/open_copied_url/
@@ -244,7 +247,7 @@
  *
  * https://www.reddit.com/r/suckless/comments/cc83om/st_open_url/
  */
-#define OPENURLONCLICK_PATCH 1
+#define OPENURLONCLICK_PATCH 0
 
 /* This patch allows you to specify a border that is relative in size to the width of a cell
  * in the terminal.
@@ -267,7 +270,7 @@
  * This variant depends on SCROLLBACK_PATCH being enabled.
  * https://st.suckless.org/patches/scrollback/
  */
-#define SCROLLBACK_MOUSE_PATCH 1
+#define SCROLLBACK_MOUSE_PATCH 0
 
 /* Scroll back through terminal output using mouse wheel (when not in MODE_ALTSCREEN).
  * This variant depends on SCROLLBACK_PATCH being enabled.
@@ -288,13 +291,9 @@
  *      not specific to this variant of st - the same issue is present in
  *      the xterm implementation. This is likely an issue of sixel height
  *      not being detected correctly.
- *    - If combined with the alpha patch sixel graphics disappear (become white)
- *      when transparent and rendered against a white background. This is believed
- *      to be related to how the sixel graphics use RGB colors instead of RGBA.
- *      A pull request or instructions for how to properly add alpha support for
- *      sixel graphics would be very welcome.
  *
  * Note that you need to uncomment the corresponding lines in config.mk when including this patch.
+ * This patch is incompatible with the W3M patch.
  *
  * https://gist.github.com/saitoha/70e0fdf22e3e8f63ce937c7f7da71809
  */
@@ -308,7 +307,7 @@
  * The behavior is similar to Plan 9 where applications can take over windows.
  * URL TBC
  */
-#define ST_EMBEDDER_PATCH 0
+#define ST_EMBEDDER_PATCH 1
 
 /* Use inverted defaultbg/fg for selection when bg/fg are the same.
  * https://st.suckless.org/patches/spoiler/
@@ -358,7 +357,7 @@
  *
  * https://st.suckless.org/patches/undercurl/
  */
-#define UNDERCURL_PATCH 1
+#define UNDERCURL_PATCH 0
 
 /* Allows mouse scroll without modifier keys for regardless of alt screen using the external
  * scroll program.
@@ -389,14 +388,14 @@
 /* Adds support for w3m images.
  * https://st.suckless.org/patches/w3m/
  */
-#define W3M_PATCH 0
+#define W3M_PATCH 1
 
 /* Adds proper glyphs rendering in st allowing wide glyphs to be drawn as-is as opposed to
  * smaller or cut glyphs being rendered.
  * https://github.com/Dreomite/st/commit/e3b821dcb3511d60341dec35ee05a4a0abfef7f2
  * https://www.reddit.com/r/suckless/comments/jt90ai/update_support_for_proper_glyph_rendering_in_st/
  */
-#define WIDE_GLYPHS_PATCH 0
+#define WIDE_GLYPHS_PATCH 1
 
 /* There is a known issue that Google's Variable Fonts (VF) can end up with letter spacing
  * that is too wide in programs that use Xft, for example Inconsolata v3.000.
